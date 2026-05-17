@@ -1,0 +1,12 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: veridia-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - veridia-redis-data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+
+volumes:
+  veridia-redis-data:
