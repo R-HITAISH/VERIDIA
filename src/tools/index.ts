@@ -5,14 +5,15 @@ import {
   secRecentFilingsTool,
 } from "./sec-edgar.js";
 import { githubOrgHealthTool, githubRepoHealthTool } from "./github.js";
+import { fetchPageTool } from "./fetch-page.js";
 
 /** Per-agent whitelisted tool sets — sealed surface. */
 export const toolsByAgent = {
-  market: [tavilySearchTool, exaSearchTool],
-  financial: [secCompanyFactsTool, secRecentFilingsTool, tavilySearchTool],
-  tech: [githubOrgHealthTool, githubRepoHealthTool, exaSearchTool],
-  team: [tavilySearchTool, exaSearchTool],
-  risk: [tavilySearchTool],
+  market: [tavilySearchTool, exaSearchTool, fetchPageTool],
+  financial: [secCompanyFactsTool, secRecentFilingsTool, tavilySearchTool, fetchPageTool],
+  tech: [githubOrgHealthTool, githubRepoHealthTool, exaSearchTool, fetchPageTool],
+  team: [tavilySearchTool, exaSearchTool, fetchPageTool],
+  risk: [tavilySearchTool, fetchPageTool],
 } as const;
 
 export {
@@ -22,4 +23,5 @@ export {
   secRecentFilingsTool,
   githubOrgHealthTool,
   githubRepoHealthTool,
+  fetchPageTool,
 };

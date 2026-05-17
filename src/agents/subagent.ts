@@ -30,7 +30,7 @@ export async function runSubAgent(
     system,
     user: subAgentUser(inv.kind, inv.company, inv.ticker, inv.objective, inv.hints),
     tools,
-    tier: "fast",
+    tier: "deep",
     maxSteps: 10,
     ctx: inv.ctx,
     agentName: `subagent.${inv.kind}`,

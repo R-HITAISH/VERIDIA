@@ -54,7 +54,9 @@ async function dispatchTasks(
   parentSpanId: string | null,
 ): Promise<string[]> {
   const ids: string[] = [];
-  for (const t of tasks) {
+  for (let i = 0; i < tasks.length; i++) {
+    const t = tasks[i]!;
+    if (i > 0) await new Promise((r) => setTimeout(r, 4000));
     const job = await queues.subagent.add(
       `${runId}.${t.kind}.${Date.now()}`,
       {

@@ -50,12 +50,14 @@ export const githubOrgHealthTool: ToolDef = {
     type: "object",
     properties: {
       org: { type: "string", description: "GitHub org login slug." },
-      topN: { type: "integer", default: 5, maximum: 10 },
+      topN: { type: "integer", maximum: 10, description: "Top repos to return (default 5)." },
     },
     required: ["org"],
   },
   run: async (raw) => {
-    const { org, topN = 5 } = raw as { org: string; topN?: number };
+    const r = raw as { org: string; topN?: number | string };
+    const org = r.org;
+    const topN = r.topN !== undefined ? Number(r.topN) : 5;
     const repos = await ghGet<OrgRepo[]>(
       `/orgs/${encodeURIComponent(org)}/repos?per_page=100&sort=pushed`,
     );

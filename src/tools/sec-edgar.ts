@@ -167,7 +167,7 @@ export const secRecentFilingsTool: ToolDef = {
     type: "object",
     properties: {
       ticker: { type: "string" },
-      limit: { type: "integer", default: 10, maximum: 25 },
+      limit: { type: "integer", maximum: 25, description: "Max filings to return (default 10)." },
       formFilter: {
         type: "string",
         description: "Optional form type filter (e.g. '10-K', '8-K').",
