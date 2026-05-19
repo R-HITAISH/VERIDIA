@@ -56,7 +56,7 @@ async function dispatchTasks(
   const ids: string[] = [];
   for (let i = 0; i < tasks.length; i++) {
     const t = tasks[i]!;
-    if (i > 0) await new Promise((r) => setTimeout(r, 4000));
+    if (i > 0) await new Promise((r) => setTimeout(r, 13000));
     const job = await queues.subagent.add(
       `${runId}.${t.kind}.${Date.now()}`,
       {
@@ -66,7 +66,11 @@ async function dispatchTasks(
         hints: t.hints,
         parentSpanId,
       },
-      { jobId: `${runId}.${t.kind}.${Date.now()}.${Math.random().toString(36).slice(2, 8)}` },
+      {
+        jobId: `${runId}.${t.kind}.${Date.now()}.${Math.random().toString(36).slice(2, 8)}`,
+        attempts: 3,
+        backoff: { type: "exponential", delay: 15000 },
+      },
     );
     ids.push(job.id!);
     await appendEvent(runId, {

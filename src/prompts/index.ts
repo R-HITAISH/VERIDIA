@@ -171,10 +171,11 @@ export function synthesisUser(
   ticker: string | undefined,
   agents: Record<string, unknown>,
 ): string {
+  const agentSummary = JSON.stringify(agents, null, 2).slice(0, 10_000);
   return `Company: ${company}${ticker ? ` (${ticker})` : ""}
 
-Sub-agent outputs (raw JSON, keyed by agent name):
-${JSON.stringify(agents, null, 2).slice(0, 80_000)}
+Sub-agent outputs (JSON, keyed by agent name):
+${agentSummary}
 
 Produce the synthesis JSON now.`;
 }

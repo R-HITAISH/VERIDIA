@@ -121,10 +121,13 @@ export async function runOpenAIAgent(
           messages.push({
             role: "tool",
             tool_call_id: call.id,
-            content:
-              typeof result === "string"
-                ? result
-                : JSON.stringify(result).slice(0, 60_000),
+            content: (() => {
+              const raw =
+                typeof result === "string"
+                  ? result
+                  : JSON.stringify(result);
+              return raw.slice(0, 3_000);
+            })(),
           });
         } catch (err) {
           messages.push({
